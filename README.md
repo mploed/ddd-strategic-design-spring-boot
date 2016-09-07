@@ -9,7 +9,7 @@ Each of the modules is it's own Spring Boot Application which can be accessed as
     <tr>
         <td>Credit Application</td>
         <td>Web App</td>
-        <td>8080</td>
-        <td>http://localhost:8080/
+        <td>9090</td>
+        <td>http://localhost:9090/
     </tr>
 </table>
