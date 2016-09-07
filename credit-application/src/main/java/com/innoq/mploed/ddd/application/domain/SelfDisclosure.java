@@ -11,6 +11,11 @@ public class SelfDisclosure {
     @Embedded
     private Outgoings outgoings;
 
+    public SelfDisclosure() {
+        earnings = new Earnings();
+        outgoings = new Outgoings();
+    }
+
     public Earnings getEarnings() {
         return earnings;
     }
@@ -25,5 +30,13 @@ public class SelfDisclosure {
 
     public void setOutgoings(Outgoings outgoings) {
         this.outgoings = outgoings;
+    }
+
+    @Override
+    public String toString() {
+        return "SelfDisclosure{" +
+                "earnings=" + earnings +
+                ", outgoings=" + outgoings +
+                '}';
     }
 }

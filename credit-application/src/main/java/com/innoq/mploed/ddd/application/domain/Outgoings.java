@@ -35,4 +35,13 @@ public class Outgoings {
     public void setCostOfLiving(long costOfLiving) {
         this.costOfLiving = costOfLiving;
     }
+
+    @Override
+    public String toString() {
+        return "Outgoings{" +
+                "rent=" + rent +
+                ", loanRepayments=" + loanRepayments +
+                ", costOfLiving=" + costOfLiving +
+                '}';
+    }
 }

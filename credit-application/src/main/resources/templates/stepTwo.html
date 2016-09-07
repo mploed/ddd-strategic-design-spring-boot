@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Big Loan Pugs</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <img class="img-responsive" src="/BigPugLoans.jpg"/>
+    </div>
+</div>
+<div class="container">
+    <form action="#" th:action="@{/saveStepOne}" th:object="${processContainer}" method="POST">
+        <h2>Your loan details</h2>
+        <div class="form-group">
+            <label for="id">Application Number</label>
+            <input class="form-control"  id="id" type="text" th:field="*{creditApplicationForm.id}" disabled="true"/>
+        </div>
+        <div class="form-group">
+            <label for="term">Term</label>
+            <input class="form-control"  id="term" type="text" th:field="*{creditApplicationForm.term}" disabled="true"/>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input class="form-control"  id="amount" type="text" th:field="*{creditApplicationForm.amount}" disabled="true"/>
+        </div>
+        <div class="form-group">
+            <label for="purpose">Purpose</label>
+            <input class="form-control"  id="purpose" type="text" th:field="*{creditApplicationForm.purpose}" disabled="true"/>
+        </div>
+
+        <h2>How about your financial situation?</h2>
+        <h3>Earnings</h3>
+        <div class="form-group">
+            <label for="income">Income</label>
+            <input class="form-control"  id="income" type="text" th:field="*{creditApplicationForm.selfDisclosure.earnings.income}" disabled="true"/>
+        </div>
+        <div class="form-group">
+            <label for="childBenefit">Child Benefit</label>
+            <input class="form-control"  id="childBenefit" type="text" th:field="*{creditApplicationForm.selfDisclosure.earnings.childBenefit}" disabled="true"/>
+        </div>
+        <div class="form-group">
+            <label for="rentalIncome">Rental Income</label>
+            <input class="form-control"  id="rentalIncome" type="text" th:field="*{creditApplicationForm.selfDisclosure.earnings.rentalIncome}" disabled="true"/>
+        </div>
+
+        <h3>Outgoings</h3>
+        <div class="form-group">
+            <label for="rent">Rent</label>
+            <input class="form-control"  id="rent" type="text" th:field="*{creditApplicationForm.selfDisclosure.outgoings.rent}" disabled="true"/>
+        </div>
+        <div class="form-group">
+            <label for="loanRepayments">Loan Repayments</label>
+            <input class="form-control"  id="loanRepayments" type="text" th:field="*{creditApplicationForm.selfDisclosure.outgoings.loanRepayments}" disabled="true"/>
+        </div>
+        <div class="form-group">
+            <label for="costOfLiving">Cost Of Living</label>
+            <input class="form-control"  id="costOfLiving" type="text" th:field="*{creditApplicationForm.selfDisclosure.outgoings.costOfLiving}" disabled="true"/>
+        </div>
+    </form>
+
+    <form action="#" th:action="@{/saveStepTwo}" th:object="${processContainer}" method="POST">
+        <input type="hidden" id="id" th:field="*{creditApplicationForm.id}"/>
+        <h2>Your details</h2>
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input class="form-control" id="firstName" type="text" th:field="*{customer.firstName}" />
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input class="form-control" id="lastName" type="text" th:field="*{customer.lastName}" />
+        </div>
+        <div class="form-group">
+            <label for="street">Street</label>
+            <input class="form-control" id="street" type="text" th:field="*{customer.street}" />
+        </div>
+        <div class="form-group">
+            <label for="postCode">Postcode</label>
+            <input class="form-control" id="postCode" type="text" th:field="*{customer.postCode}" />
+        </div>
+        <div class="form-group">
+            <label for="city">City</label>
+            <input class="form-control" id="city" type="text" th:field="*{customer.city}" />
+        </div>
+        <button type="submit" class="btn btn-default">Proceed</button>
+
+    </form>
+</div>
+</body>
+</html>

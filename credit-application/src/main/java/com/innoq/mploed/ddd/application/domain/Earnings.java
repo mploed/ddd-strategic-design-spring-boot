@@ -36,4 +36,13 @@ public class Earnings {
     public void setRentalIncome(long rentalIncome) {
         this.rentalIncome = rentalIncome;
     }
+
+    @Override
+    public String toString() {
+        return "Earnings{" +
+                "income=" + income +
+                ", childBenefit=" + childBenefit +
+                ", rentalIncome=" + rentalIncome +
+                '}';
+    }
 }

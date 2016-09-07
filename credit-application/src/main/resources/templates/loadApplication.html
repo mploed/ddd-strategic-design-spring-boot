@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>innoQ User Management</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+
+    <h1>Loan Pug</h1>
+
+    <h2>Apply for a loan by the big pug</h2>
+    <form action="#" th:action="@{/createCustomer}" th:object="${customer}" method="POST">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input class="form-control" id="firstName" type="text" th:field="*{firstName}" />
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input class="form-control" id="lastName" type="text" th:field="*{lastName}" />
+        </div>
+        <div class="form-group">
+            <label for="street">Street</label>
+            <input class="form-control" id="street" type="text" th:field="*{street}" />
+        </div>
+        <div class="form-group">
+            <label for="postCode">Postcode</label>
+            <input class="form-control" id="postCode" type="text" th:field="*{postCode}" />
+        </div>
+        <div class="form-group">
+            <label for="city">City</label>
+            <input class="form-control" id="city" type="text" th:field="*{city}" />
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+    <h1>Alle User</h1>
+
+    <table class="table">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Street</th>
+            <th>Post Code</th>
+            <th>City</th>
+            <th>Status</th>
+            <th>&nbsp;</th>
+        </tr>
+        <th:block th:each="user : ${users}">
+            <tr>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.street}"></td>
+                <td th:text="${user.postCode}"></td>
+                <td th:text="${user.city}"></td>
+                <td th:text="${user.status}"></td>
+                <td>
+                    <form action="#" th:action="@{/user/deactivate}" th:object="${user}" method="post">
+                        <input type="hidden" name="id" th:value="*{id}"/>
+                        <input type="submit" value="Deactivate" />
+                    </form>
+                    <form action="#" th:action="@{/user/verify}" th:object="${user}" method="post">
+                        <input type="hidden" name="id" th:value="*{id}"/>
+                        <input type="submit" value="Verify" />
+                    </form>
+
+                </td>
+            </tr>
+        </th:block>
+    </table>
+
+    <h1>Verifizierte User</h1>
+
+    <table class="table">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Street</th>
+            <th>Post Code</th>
+            <th>City</th>
+            <th>Status</th>
+        </tr>
+        <th:block th:each="user : ${verifiedUsers}">
+            <tr>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.street}"></td>
+                <td th:text="${user.postCode}"></td>
+                <td th:text="${user.city}"></td>
+                <td th:text="${user.status}"></td>
+
+            </tr>
+        </th:block>
+    </table>
+
+    <h1>Deaktivierte User</h1>
+
+    <table  class="table">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Street</th>
+            <th>Post Code</th>
+            <th>City</th>
+            <th>Status</th>
+        </tr>
+        <th:block th:each="user : ${deactivatedUsers}">
+            <tr>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.street}"></td>
+                <td th:text="${user.postCode}"></td>
+                <td th:text="${user.city}"></td>
+                <td th:text="${user.status}"></td>
+
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>
