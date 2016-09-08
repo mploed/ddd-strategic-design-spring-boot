@@ -21,6 +21,6 @@ Each of the modules is it's own Spring Boot Application which can be accessed as
         <td>Customer</td>
         <td>WSDL Endpoint</td>
         <td>9091</td>
-        <td>http://localhost:9091/</td>
+        <td>http://localhost:9091/ws/ or http://localhost:9091/ws/customer.wsdl for the wsdl</td>
     </tr>
 </table>
