@@ -81,10 +81,11 @@ public class CreditApplicationController {
         scoringInput.setFirstName(processContainer.getCustomer().getFirstName());
         scoringInput.setLastName(processContainer.getCustomer().getLastName());
         scoringInput.setStreet(processContainer.getCustomer().getStreet());
-        scoringInput.setPostCode(processContainer.getCustomer().getCity());
+        scoringInput.setPostCode(processContainer.getCustomer().getPostCode());
 
         log.info("calling ScoringService");
         ScoringResult scoringResult = scoringService.performScoring(scoringInput);
+
         model.addAttribute("scoringResult", scoringResult);
 
         return "scoringResult";

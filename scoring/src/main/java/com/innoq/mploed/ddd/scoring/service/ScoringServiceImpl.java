@@ -4,8 +4,13 @@ import com.innoq.mploed.ddd.scoring.shared.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,12 +33,25 @@ public class ScoringServiceImpl implements ScoringService {
         ScoringResult result = new ScoringResult();
         int points = 0;
 
-        Map<String, String> requestVariables = new HashMap<String, String>();
-        requestVariables.put("firstName", scoringInput.getFirstName());
-        requestVariables.put("lastName", scoringInput.getLastName());
-        requestVariables.put("postCode", scoringInput.getPostCode());
-        requestVariables.put("street", scoringInput.getStreet());
-        AgencyResult agencyResult = restTemplate.getForObject("http://localhost:9092/personRating", AgencyResult.class, requestVariables);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:9092/personRating")
+                .queryParam("firstName", scoringInput.getFirstName())
+                .queryParam("lastName", scoringInput.getLastName())
+                .queryParam("postCode", scoringInput.getPostCode())
+                .queryParam("street", scoringInput.getStreet());
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        HttpEntity<AgencyResult> response = restTemplate.exchange(
+                builder.build().encode().toUri(),
+                HttpMethod.GET,
+                entity,
+                AgencyResult.class);
+
+
+        AgencyResult agencyResult = response.getBody();
         result.setAgencyResult(agencyResult);
         if(scoringInput.getIncome() - scoringInput.getSpendings() > scoringInput.getMonthlyPayment()) {
             points += 50;
