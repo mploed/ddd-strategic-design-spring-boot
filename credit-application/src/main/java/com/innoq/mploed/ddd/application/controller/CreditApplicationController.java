@@ -78,6 +78,10 @@ public class CreditApplicationController {
         scoringInput.setSpendings(creditApplicationForm.getSelfDisclosure().getOutgoings().sum());
         scoringInput.setReason(creditApplicationForm.getPurpose());
         scoringInput.setMonthlyPayment(creditApplicationForm.getMonthlyPayment().longValue());
+        scoringInput.setFirstName(processContainer.getCustomer().getFirstName());
+        scoringInput.setLastName(processContainer.getCustomer().getLastName());
+        scoringInput.setStreet(processContainer.getCustomer().getStreet());
+        scoringInput.setPostCode(processContainer.getCustomer().getCity());
 
         log.info("calling ScoringService");
         ScoringResult scoringResult = scoringService.performScoring(scoringInput);

@@ -122,7 +122,12 @@
     </form>
 
     <form action="#" th:action="@{/performScoring}" th:object="${processContainer}" method="POST">
-        <input type="hidden" id="id" th:field="*{creditApplicationForm.id}"/>
+        <input type="hidden" th:field="*{creditApplicationForm.id}"/>
+        <input type="hidden" th:field="*{customer.firstName}"/>
+        <input type="hidden" th:field="*{customer.lastName}"/>
+        <input type="hidden" th:field="*{customer.street}"/>
+        <input type="hidden" th:field="*{customer.postCode}"/>
+        <input type="hidden" th:field="*{customer.city}"/>
 
         <button type="submit" class="btn btn-default">Perform Scoring</button>
     </form>
