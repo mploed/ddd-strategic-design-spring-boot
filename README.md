@@ -30,6 +30,12 @@ Each of the modules is it's own Spring Boot Application which can be accessed as
         <td>http://localhost:9091/ws/ or http://localhost:9091/ws/customer.wsdl for the wsdl</td>
     </tr>
     <tr>
+        <td>Credit Agency</td>
+        <td>REST Endpoint</td>
+        <td>9092</td>
+        <td>http://localhost:9092/personRating</td>
+    </tr>
+    <tr>
         <td>Scoring</td>
         <td>RMI Endpoint</td>
         <td>1199</td>
