@@ -10,6 +10,12 @@ Each of the modules is it's own Spring Boot Application which can be accessed as
         <td>Credit Application</td>
         <td>Web App</td>
         <td>9090</td>
-        <td>http://localhost:9090/
+        <td>http://localhost:9090/</td>
+    </tr>
+    <tr>
+        <td>Customer</td>
+        <td>WSDL Endpoint</td>
+        <td>9091</td>
+        <td>http://localhost:9091/</td>
     </tr>
 </table>
