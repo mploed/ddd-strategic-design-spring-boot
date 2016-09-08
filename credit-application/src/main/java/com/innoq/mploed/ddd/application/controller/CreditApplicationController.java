@@ -4,6 +4,11 @@ import com.innoq.mploed.ddd.application.domain.CreditApplicationForm;
 import com.innoq.mploed.ddd.application.domain.Customer;
 import com.innoq.mploed.ddd.application.integration.customer.CustomerClient;
 import com.innoq.mploed.ddd.application.repository.CreditApplicationFormRespository;
+import com.innoq.mploed.ddd.scoring.shared.ScoringInput;
+import com.innoq.mploed.ddd.scoring.shared.ScoringResult;
+import com.innoq.mploed.ddd.scoring.shared.ScoringService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +24,16 @@ public class CreditApplicationController {
 
     private CustomerClient customerClient;
 
+    private ScoringService scoringService;
+
+    private static final Logger log = LoggerFactory.getLogger(CreditApplicationController.class);
     @Autowired
     public CreditApplicationController(CreditApplicationFormRespository creditApplicationFormRespository,
-                                       CustomerClient customerClient) {
+                                       CustomerClient customerClient,
+                                       ScoringService scoringService) {
         this.creditApplicationFormRespository = creditApplicationFormRespository;
         this.customerClient = customerClient;
+        this.scoringService = scoringService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -46,7 +56,33 @@ public class CreditApplicationController {
         System.out.println(processContainer.getCustomer());
         System.out.println(processContainer.getCreditApplicationForm());
 
-        customerClient.saveCustomer(processContainer.getCustomer());
-        return "index";
+        Customer customer = customerClient.saveCustomer(processContainer.getCustomer());
+        CreditApplicationForm creditApplicationForm = creditApplicationFormRespository.findOne(processContainer.getCreditApplicationForm().getId());
+
+        processContainer.setCustomer(customer);
+        processContainer.setCreditApplicationForm(creditApplicationForm);
+        creditApplicationForm.setCustomerId(customer.getId());
+        model.addAttribute("processContainer", processContainer);
+
+        return "applicationSummary";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "performScoring")
+    public String performScoring(@ModelAttribute ProcessContainer processContainer, Model model) {
+
+        CreditApplicationForm creditApplicationForm = creditApplicationFormRespository.findOne(processContainer.getCreditApplicationForm().getId());
+
+
+        ScoringInput scoringInput = new ScoringInput();
+        scoringInput.setIncome(creditApplicationForm.getSelfDisclosure().getEarnings().sum());
+        scoringInput.setSpendings(creditApplicationForm.getSelfDisclosure().getOutgoings().sum());
+        scoringInput.setReason(creditApplicationForm.getPurpose());
+        scoringInput.setMonthlyPayment(creditApplicationForm.getMonthlyPayment().longValue());
+
+        log.info("calling ScoringService");
+        ScoringResult scoringResult = scoringService.performScoring(scoringInput);
+        model.addAttribute("scoringResult", scoringResult);
+
+        return "scoringResult";
     }
 }

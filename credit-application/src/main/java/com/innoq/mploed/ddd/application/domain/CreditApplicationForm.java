@@ -17,6 +17,7 @@ public class CreditApplicationForm {
 
     private BigDecimal percentage;
 
+    @Transient
     private BigDecimal monthlyPayment;
 
     @Embedded
@@ -71,12 +72,9 @@ public class CreditApplicationForm {
     }
 
     public BigDecimal getMonthlyPayment() {
-        return monthlyPayment;
+        return this.amount.divide(new BigDecimal(this.getTerm()));
     }
 
-    public void setMonthlyPayment(BigDecimal monthlyPayment) {
-        this.monthlyPayment = monthlyPayment;
-    }
 
     public SelfDisclosure getSelfDisclosure() {
         return selfDisclosure;

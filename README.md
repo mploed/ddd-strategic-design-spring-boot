@@ -12,6 +12,12 @@ Each of the modules is it's own Spring Boot Application which can be accessed as
 
 <table>
     <tr>
+        <th>Name</th>
+        <th>Application / Enpoint Type</th>
+        <th>Port</th>
+        <th>URL</th>
+    </tr>
+    <tr>
         <td>Credit Application</td>
         <td>Web App</td>
         <td>9090</td>
@@ -22,5 +28,11 @@ Each of the modules is it's own Spring Boot Application which can be accessed as
         <td>WSDL Endpoint</td>
         <td>9091</td>
         <td>http://localhost:9091/ws/ or http://localhost:9091/ws/customer.wsdl for the wsdl</td>
+    </tr>
+    <tr>
+        <td>Scoring</td>
+        <td>RMI Endpoint</td>
+        <td>1199</td>
+        <td>http://localhost:1199/scoringService</td>
     </tr>
 </table>
