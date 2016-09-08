@@ -6,6 +6,8 @@ Application to demonstrate Domain Driven Design Context Mapping patterns based o
 1. Build the customer application
 2. Run the customer application
 3. Run mvn jaxb2:generate in credit-application while the customer application is running
+4. Run the scoring application
+5. Run the credit-agency application
 
 ## URLs and Ports
 Each of the modules is it's own Spring Boot Application which can be accessed as follows:
