@@ -8,7 +8,7 @@ public class Rating {
 
     private String color;
 
-    private Set<String> messages = new HashSet<String>();
+    private Set<String> warnings = new HashSet<String>();
 
     public long getPoints() {
         return points;
@@ -26,11 +26,11 @@ public class Rating {
         this.color = color;
     }
 
-    public Set<String> getMessages() {
-        return messages;
+    public Set<String> getWarnings() {
+        return warnings;
     }
 
-    public void setMessages(Set<String> messages) {
-        this.messages = messages;
+    public void setWarnings(Set<String> warnings) {
+        this.warnings = warnings;
     }
 }

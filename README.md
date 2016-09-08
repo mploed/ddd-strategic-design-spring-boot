@@ -8,6 +8,8 @@ Application to demonstrate Domain Driven Design Context Mapping patterns based o
 3. Run mvn jaxb2:generate in credit-application while the customer application is running
 4. Run the scoring application
 5. Run the credit-agency application
+6. Run the credit-application application
+7. Start entering data at http://localhost:9090
 
 ## URLs and Ports
 Each of the modules is it's own Spring Boot Application which can be accessed as follows:

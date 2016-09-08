@@ -27,6 +27,24 @@
 
         <h1 th:text="${{scoringResult.scoringColor}}">YELLOW</h1>
 
+    <table class="table">
+            <tr>
+                <th>Scoring Points</th>
+                <th>Scoring Color</th>
+                <th>Agency Points</th>
+                <th>Agency Color</th>
+            </tr>
+            <tr>
+                <td th:text="${{scoringResult.scoringPoints}}">123</td>
+                <td th:text="${{scoringResult.scoringColor}}">YELLOW</td>
+                <td th:text="${{scoringResult.agencyResult.points}}">232</td>
+                <td th:text="${{scoringResult.agencyResult.color}}">BLACK</td>
+            </tr>
+
+        </table>
+
+
+
 </div>
 </body>
 </html>
