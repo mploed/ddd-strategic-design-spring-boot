@@ -21,7 +21,6 @@
         <module>customer</module>
         <module>credit-application</module>
         <module>scoring</module>
-        <module>credit-decision</module>
         <module>scoring-shared-kernel</module>
     </modules>
 
