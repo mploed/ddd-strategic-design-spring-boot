@@ -2,14 +2,17 @@ package com.innoq.mploed.ddd.application.controller;
 
 import com.innoq.mploed.ddd.application.domain.CreditApplicationForm;
 import com.innoq.mploed.ddd.application.domain.Customer;
+import com.innoq.mploed.ddd.application.domainevents.CreditApplicationApprovedEvent;
 import com.innoq.mploed.ddd.application.integration.customer.CustomerClient;
 import com.innoq.mploed.ddd.application.repository.CreditApplicationFormRespository;
+import com.innoq.mploed.ddd.scoring.shared.ScoringColor;
 import com.innoq.mploed.ddd.scoring.shared.ScoringInput;
 import com.innoq.mploed.ddd.scoring.shared.ScoringResult;
 import com.innoq.mploed.ddd.scoring.shared.ScoringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,14 +29,19 @@ public class CreditApplicationController {
 
     private ScoringService scoringService;
 
+    private RedisTemplate<String, String> redisTemplate;
+
     private static final Logger log = LoggerFactory.getLogger(CreditApplicationController.class);
+
     @Autowired
     public CreditApplicationController(CreditApplicationFormRespository creditApplicationFormRespository,
                                        CustomerClient customerClient,
-                                       ScoringService scoringService) {
+                                       ScoringService scoringService,
+                                       RedisTemplate redisTemplate) {
         this.creditApplicationFormRespository = creditApplicationFormRespository;
         this.customerClient = customerClient;
         this.scoringService = scoringService;
+        this.redisTemplate = redisTemplate;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -52,9 +60,6 @@ public class CreditApplicationController {
 
     @RequestMapping(method = RequestMethod.POST, path = "saveStepTwo")
     public String saveStepTwo(@ModelAttribute ProcessContainer processContainer, Model model) {
-
-        System.out.println(processContainer.getCustomer());
-        System.out.println(processContainer.getCreditApplicationForm());
 
         Customer customer = customerClient.saveCustomer(processContainer.getCustomer());
         CreditApplicationForm creditApplicationForm = creditApplicationFormRespository.findOne(processContainer.getCreditApplicationForm().getId());
@@ -86,6 +91,8 @@ public class CreditApplicationController {
         log.info("calling ScoringService");
         ScoringResult scoringResult = scoringService.performScoring(scoringInput);
 
+
+        redisTemplate.convertAndSend("credit-application-approved-events", new CreditApplicationApprovedEvent(creditApplicationForm.getTerm(), creditApplicationForm.getAmount(), creditApplicationForm.getPercentage(), creditApplicationForm.getCustomerId().toString(), creditApplicationForm.getId().toString()));
         model.addAttribute("scoringResult", scoringResult);
 
         return "scoringResult";

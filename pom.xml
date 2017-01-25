@@ -22,6 +22,7 @@
         <module>credit-application</module>
         <module>scoring</module>
         <module>scoring-shared-kernel</module>
+        <module>customer-contact</module>
     </modules>
 
     <properties>
