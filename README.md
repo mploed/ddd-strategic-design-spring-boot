@@ -4,6 +4,8 @@ Please bear in mind that the application itself is kept simplistic, in order to 
 Patterns. This is the reason why you will find some logic in Controllers that should be placed in other classes in a real-world
 application or the reason why I use database IDs for a general purpose.
 
+Also keep in mind that some of the Context Mapping Patterns _not_ best practices but are things that are found in existing, historically grown applications. Context Mapping is mostly a way to look at _existing_ solutions and this code example is an existing solution that has some intentionally built in issues.
+
 A good starting point for your analysis is the CreditApplicationController in credit-application as it implements the
 main workflow.
 
