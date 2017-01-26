@@ -2,7 +2,8 @@ package com.innoq.mploed.ddd.application.controller;
 
 import com.innoq.mploed.ddd.application.domain.CreditApplicationForm;
 import com.innoq.mploed.ddd.application.domain.Customer;
-import com.innoq.mploed.ddd.application.domainevents.CreditApplicationApprovedEvent;
+import com.innoq.mploed.ddd.application.events.CreditApplicationApprovedEvent;
+import com.innoq.mploed.ddd.application.events.CreditApplicationDeclinedEvent;
 import com.innoq.mploed.ddd.application.integration.customer.CustomerClient;
 import com.innoq.mploed.ddd.application.repository.CreditApplicationFormRespository;
 import com.innoq.mploed.ddd.scoring.shared.ScoringColor;
@@ -31,7 +32,7 @@ public class CreditApplicationController {
 
     private RedisTemplate<String, String> redisTemplate;
 
-    private static final Logger log = LoggerFactory.getLogger(CreditApplicationController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CreditApplicationController.class);
 
     @Autowired
     public CreditApplicationController(CreditApplicationFormRespository creditApplicationFormRespository,
@@ -61,12 +62,15 @@ public class CreditApplicationController {
     @RequestMapping(method = RequestMethod.POST, path = "saveStepTwo")
     public String saveStepTwo(@ModelAttribute ProcessContainer processContainer, Model model) {
 
+        LOGGER.info("Remotely and synchronously calling the Customer Application in order to save the customer");
         Customer customer = customerClient.saveCustomer(processContainer.getCustomer());
         CreditApplicationForm creditApplicationForm = creditApplicationFormRespository.findOne(processContainer.getCreditApplicationForm().getId());
 
         processContainer.setCustomer(customer);
         processContainer.setCreditApplicationForm(creditApplicationForm);
+
         creditApplicationForm.setCustomerId(customer.getId());
+        creditApplicationFormRespository.save(creditApplicationForm);
         model.addAttribute("processContainer", processContainer);
 
         return "applicationSummary";
@@ -88,11 +92,19 @@ public class CreditApplicationController {
         scoringInput.setStreet(processContainer.getCustomer().getStreet());
         scoringInput.setPostCode(processContainer.getCustomer().getPostCode());
 
-        log.info("calling ScoringService");
+
+        LOGGER.info("Remotely and synchronously calling the Scoring Application in order to perform a scoring");
         ScoringResult scoringResult = scoringService.performScoring(scoringInput);
 
 
-        redisTemplate.convertAndSend("credit-application-approved-events", new CreditApplicationApprovedEvent(creditApplicationForm.getTerm(), creditApplicationForm.getAmount(), creditApplicationForm.getPercentage(), creditApplicationForm.getCustomerId().toString(), creditApplicationForm.getId().toString()));
+        if(scoringResult.getScoringColor().equals(ScoringColor.GREEN)) {
+            LOGGER.info("Scoring was green, sending CreditApplicationApprovedEvent");
+            redisTemplate.convertAndSend("credit-application-approved-events", new CreditApplicationApprovedEvent(creditApplicationForm));
+        } else {
+            LOGGER.info("Scoring was NOT green, sending CreditApplicationDeclinedEvent");
+            redisTemplate.convertAndSend("credit-application-declined-events", new CreditApplicationDeclinedEvent(creditApplicationForm));
+        }
+
         model.addAttribute("scoringResult", scoringResult);
 
         return "scoringResult";

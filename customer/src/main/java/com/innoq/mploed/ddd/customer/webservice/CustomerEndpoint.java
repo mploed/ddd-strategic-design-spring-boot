@@ -1,11 +1,13 @@
 package com.innoq.mploed.ddd.customer.webservice;
 
 import com.innoq.mploed.ddd.customer.domain.Kunde;
+import com.innoq.mploed.ddd.customer.domainevents.CustomerCreatedEvent;
 import com.innoq.mploed.ddd.customer.repository.KundeRepository;
 import com.innoq.mploed.ddd.customer.ws.Customer;
 import com.innoq.mploed.ddd.customer.ws.SaveCustomerRequest;
 import com.innoq.mploed.ddd.customer.ws.SaveCustomerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -17,9 +19,12 @@ public class CustomerEndpoint {
 
     private KundeRepository kundeRepository;
 
+    private RedisTemplate redisTemplate;
+
     @Autowired
-    public CustomerEndpoint(KundeRepository kundeRepository) {
+    public CustomerEndpoint(KundeRepository kundeRepository, RedisTemplate redisTemplate) {
         this.kundeRepository = kundeRepository;
+        this.redisTemplate = redisTemplate;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "saveCustomerRequest")
@@ -34,7 +39,7 @@ public class CustomerEndpoint {
         kunde.setPlz(customer.getPostCode());
         kunde.setStadt(customer.getCity());
         Kunde savedKunde = kundeRepository.saveAndFlush(kunde);
-
+        redisTemplate.convertAndSend("customer-created-events", new CustomerCreatedEvent(savedKunde));
         customer.setId(savedKunde.getId());
         response.setCustomer(customer);
 

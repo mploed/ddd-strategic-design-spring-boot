@@ -1,4 +1,6 @@
-package com.innoq.mploed.ddd.application.domainevents;
+package com.innoq.mploed.ddd.application.events;
+
+import com.innoq.mploed.ddd.application.domain.CreditApplicationForm;
 
 import java.math.BigDecimal;
 
@@ -15,12 +17,12 @@ public class CreditApplicationApprovedEvent {
     String creditApplicationId;
 
 
-    public CreditApplicationApprovedEvent(int term, BigDecimal amount, BigDecimal percentage, String customerId, String creditApplicationId) {
-        this.term = term;
-        this.amount = amount;
-        this.percentage = percentage;
-        this.customerId = customerId;
-        this.creditApplicationId = creditApplicationId;
+    public CreditApplicationApprovedEvent(CreditApplicationForm creditApplicationForm) {
+        this.term = creditApplicationForm.getTerm();
+        this.amount = creditApplicationForm.getAmount();
+        this.percentage = creditApplicationForm.getPercentage();
+        this.customerId = creditApplicationForm.getCustomerId().toString();
+        this.creditApplicationId = creditApplicationForm.getId().toString();
     }
 
     public int getTerm() {

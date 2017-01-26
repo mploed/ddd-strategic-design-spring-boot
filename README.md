@@ -1,15 +1,27 @@
 # DDD Strategic Design with Spring Boot
-Application to demonstrate Domain Driven Design Context Mapping patterns based on Spring Boot
+Application to demonstrate Domain Driven Design Context Mapping patterns based on variosu Spring Boot applications.
+Please bear in mind that the application itself is kept simplistic, in order to isolate the focus on the Context Mapping
+Patterns. This is the reason why you will find some logic in Controllers that should be placed in other classes in a real-world
+application or the reason why I use database IDs for a general purpose.
+
+A good starting point for your analysis is the CreditApplicationController in credit-application as it implements the
+main workflow.
+
+
+## Prerequisites
+- You need a current version of Maven
+- A basic installation of Redis must be installed and running (redis-server)
 
 ## How to run and install the example
-
-1. Build the customer application
-2. Run the customer application
-3. Run mvn jaxb2:generate in credit-application while the customer application is running
-4. Run the scoring application
-5. Run the credit-agency application
-6. Run the credit-application application
-7. Start entering data at http://localhost:9090
+1. Start your redis-server
+2. Build the customer application
+3. Run the customer application
+4. Run mvn jaxb2:generate in credit-application while the customer application is running
+5. Run the scoring application
+6. Run the credit-agency application
+7. Run the customer-contact application
+8. Run the credit-application application
+9. Start entering data at http://localhost:9090
 
 ## URLs and Ports
 Each of the modules is it's own Spring Boot Application which can be accessed as follows:
@@ -44,5 +56,11 @@ Each of the modules is it's own Spring Boot Application which can be accessed as
         <td>RMI Endpoint</td>
         <td>1199</td>
         <td>http://localhost:1199/scoringService</td>
+    </tr>
+    <tr>
+        <td>Customer Contact</td>
+        <td>No active server endpoint, listens to Redis on the following topics: customer-created-events, credit-application-approved-events</td>
+        <td>No open port</td>
+        <td>No available URL for access</td>
     </tr>
 </table>

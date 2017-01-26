@@ -1,20 +1,35 @@
-package com.innoq.mploed.ddd.customer.domain;
+package com.innoq.mploed.ddd.customercontact.events;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.innoq.mploed.ddd.customercontact.domain.Address;
 
-@Entity
-public class Kunde {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+public class CustomerCreatedEvent {
     private Long id;
     private String vorname;
     private String nachname;
     private String strasse;
     private String plz;
     private String stadt;
+
+    public Address toAddress() {
+        Address address = new Address();
+        address.setCustomerId(this.id.toString());
+        address.setName(this.vorname + " " + this.nachname);
+        address.setStreet(this.strasse);
+        address.setCity(this.plz + " " + this.stadt);
+        return address;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerCreatedEvent{" +
+                "id=" + id +
+                ", vorname='" + vorname + '\'' +
+                ", nachname='" + nachname + '\'' +
+                ", strasse='" + strasse + '\'' +
+                ", plz='" + plz + '\'' +
+                ", stadt='" + stadt + '\'' +
+                '}';
+    }
 
     public Long getId() {
         return id;
