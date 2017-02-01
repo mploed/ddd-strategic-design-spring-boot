@@ -4,6 +4,7 @@ import com.innoq.mploed.ddd.scoring.shared.ScoringService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.remoting.caucho.HessianServiceExporter;
 import org.springframework.remoting.rmi.RmiServiceExporter;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,13 +14,12 @@ public class ScoringApplication {
         SpringApplication.run(ScoringApplication.class);
     }
 
-    @Bean
-    public RmiServiceExporter nameRmiService(ScoringService scoringService) {
-        RmiServiceExporter serviceExporter = new RmiServiceExporter();
-        serviceExporter.setServiceName("scoringService");
+    @Bean(name="/ScoringService")
+    public HessianServiceExporter socringHessianService(ScoringService scoringService) {
+        HessianServiceExporter serviceExporter = new HessianServiceExporter();
         serviceExporter.setService(scoringService);
         serviceExporter.setServiceInterface(ScoringService.class);
-        serviceExporter.setRegistryPort(1199);
+
         return serviceExporter;
     }
 
