@@ -14,7 +14,7 @@ public class ScoringApplication {
         SpringApplication.run(ScoringApplication.class);
     }
 
-    @Bean
+    @Bean(name = "/ScoringService")
     public HessianServiceExporter scoringHessianService(ScoringService scoringService) {
         HessianServiceExporter hessianServiceExporter = new HessianServiceExporter();
         hessianServiceExporter.setService(scoringService);

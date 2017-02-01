@@ -11,7 +11,7 @@ public class ScoringHessianConfiguration {
     @Bean
     public HessianProxyFactoryBean scoringService() {
         HessianProxyFactoryBean scoringServiceClient = new HessianProxyFactoryBean();
-        scoringServiceClient.setServiceUrl("https://mploed-scoring.cfapps.io/remoting/ScoringService");
+        scoringServiceClient.setServiceUrl("https://mploed-scoring.cfapps.io/ScoringService");
         scoringServiceClient.setServiceInterface(ScoringService.class);
         return scoringServiceClient;
     }
