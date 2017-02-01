@@ -10,7 +10,7 @@ public class ScoringRmiConfiguration {
     @Bean
     public RmiProxyFactoryBean scoringService() {
         RmiProxyFactoryBean nameServiceClient = new RmiProxyFactoryBean();
-        nameServiceClient.setServiceUrl("rmi://localhost:1199/scoringService");
+        nameServiceClient.setServiceUrl("rmi://mploed-scoring.cfapps.io:1199/scoringService");
         nameServiceClient.setServiceInterface(ScoringService.class);
         return nameServiceClient;
     }

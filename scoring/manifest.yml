@@ -1,0 +1,4 @@
+---
+applications:
+- name: mploed-scoring
+  memory: 256M
