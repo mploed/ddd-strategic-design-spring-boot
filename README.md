@@ -15,15 +15,20 @@ main workflow.
 - A basic installation of Redis must be installed and running (redis-server)
 
 ## How to run and install the example
+
+There is no "one-stop" build and install script as of yet so you will have to take a few easy manual steps that you should
+*run in this specific order*:
+
 1. Start your redis-server
-2. Build the customer application
-3. Run the customer application
-4. Run mvn jaxb2:generate in credit-application while the customer application is running
-5. Run the scoring application
-6. Run the credit-agency application
-7. Run the customer-contact application
-8. Run the credit-application application
-9. Start entering data at http://localhost:9090
+2. Build the scoring-shared-kernel module
+3. Build the customer application
+4. Run the customer application
+5. Run mvn jaxb2:generate in credit-application while the customer application is running
+6. Run the scoring application
+7. Run the credit-agency application
+8. Run the customer-contact application
+9. Run the credit-application application
+10. Start entering data at http://localhost:9090
 
 ## URLs and Ports
 Each of the modules is it's own Spring Boot Application which can be accessed as follows:
