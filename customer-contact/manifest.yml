@@ -1,8 +1,8 @@
 ---
 applications:
 - name: mploed-customer-contact
-  memory: 256M
-  instances: 2
+  memory: 512M
+  instances: 1
   services:
       - mysql-db
       - redis-pubsub
