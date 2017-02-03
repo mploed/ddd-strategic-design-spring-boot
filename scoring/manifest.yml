@@ -2,3 +2,4 @@
 applications:
 - name: mploed-scoring
   memory: 256M
+  path: target/scoring-0.1.0.jar

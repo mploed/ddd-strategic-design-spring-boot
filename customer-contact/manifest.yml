@@ -3,6 +3,7 @@ applications:
 - name: mploed-customer-contact
   memory: 512M
   instances: 1
+  path: target/customer-contact-0.1.0.jar
   services:
       - mysql-db
       - redis-pubsub

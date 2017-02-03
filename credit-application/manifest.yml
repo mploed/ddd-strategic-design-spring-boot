@@ -3,6 +3,7 @@ applications:
 - name: mploed-credit-application
   memory: 512M
   timeout: 180
+  path: credit-application-0.1.0.jar
   services:
       - mysql-db
       - redis-pubsub

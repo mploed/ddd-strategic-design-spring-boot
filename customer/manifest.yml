@@ -2,6 +2,7 @@
 applications:
 - name: mploed-customer
   memory: 256M
+  path: target/customer-0.1.0.jar
   services:
       - mysql-db
       - redis-pubsub
