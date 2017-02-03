@@ -36,7 +36,7 @@ public class ScoringServiceImpl implements ScoringService {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:9092/personRating")
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://mploed-credit-agency.cfapps.io/personRating")
                 .queryParam("firstName", scoringInput.getFirstName())
                 .queryParam("lastName", scoringInput.getLastName())
                 .queryParam("postCode", scoringInput.getPostCode())

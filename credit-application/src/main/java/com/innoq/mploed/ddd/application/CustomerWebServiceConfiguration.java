@@ -18,7 +18,7 @@ public class CustomerWebServiceConfiguration {
     @Bean
     public CustomerClient customerClient(Jaxb2Marshaller marshaller) {
         CustomerClient client = new CustomerClient();
-        client.setDefaultUri("http://localhost:9091/ws");
+        client.setDefaultUri("https://mploed-customer.cfapps.io/ws");
         client.setMarshaller(marshaller);
         client.setUnmarshaller(marshaller);
         return client;

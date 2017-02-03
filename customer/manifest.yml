@@ -1,0 +1,7 @@
+---
+applications:
+- name: mploed-customer
+  memory: 256M
+  services:
+      - mysql-db
+      - redis-pubsub

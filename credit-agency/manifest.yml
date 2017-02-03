@@ -1,0 +1,4 @@
+---
+applications:
+- name: mploed-credit-agency
+  memory: 256M

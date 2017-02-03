@@ -14,13 +14,12 @@ public class ScoringApplication {
         SpringApplication.run(ScoringApplication.class);
     }
 
-    @Bean(name="/ScoringService")
-    public HessianServiceExporter socringHessianService(ScoringService scoringService) {
-        HessianServiceExporter serviceExporter = new HessianServiceExporter();
-        serviceExporter.setService(scoringService);
-        serviceExporter.setServiceInterface(ScoringService.class);
-
-        return serviceExporter;
+    @Bean(name = "/ScoringService")
+    public HessianServiceExporter scoringHessianService(ScoringService scoringService) {
+        HessianServiceExporter hessianServiceExporter = new HessianServiceExporter();
+        hessianServiceExporter.setService(scoringService);
+        hessianServiceExporter.setServiceInterface(ScoringService.class);
+        return hessianServiceExporter;
     }
 
     @Bean

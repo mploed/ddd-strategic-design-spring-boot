@@ -1,0 +1,8 @@
+---
+applications:
+- name: mploed-credit-application
+  memory: 512M
+  timeout: 180
+  services:
+      - mysql-db
+      - redis-pubsub
