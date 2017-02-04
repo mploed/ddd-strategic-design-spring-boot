@@ -1,6 +1,3 @@
-server:
-  port: 9091
-
 spring:
   jpa:
     show-sql: true

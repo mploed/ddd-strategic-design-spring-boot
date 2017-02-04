@@ -1,9 +1,12 @@
 ---
 applications:
 - name: mploed-credit-application
-  memory: 512M
+  memory: 756M
   timeout: 180
-  path: credit-application-0.1.0.jar
+  path: target/credit-application-0.1.0.jar
   services:
       - mysql-db
       - redis-pubsub
+  env:
+    scoringServer: https://mploed-scoring.cfapps.io/
+    customerServer: https://mploed-customer.cfapps.io/

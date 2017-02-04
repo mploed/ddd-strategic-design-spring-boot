@@ -4,3 +4,9 @@ server:
 spring:
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+customerServer: http://localhost:9091/
+
+scoringServer: http://localhost:9093/

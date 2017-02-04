@@ -4,6 +4,7 @@ import com.innoq.mploed.ddd.scoring.shared.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,6 +20,9 @@ import java.util.Map;
 public class ScoringServiceImpl implements ScoringService {
 
     private static final Logger log = LoggerFactory.getLogger(ScoringServiceImpl.class);
+
+    @Value("${creditAgencyServer}")
+    private String creditAgencyServer;
 
     private RestTemplate restTemplate;
 
@@ -36,7 +40,7 @@ public class ScoringServiceImpl implements ScoringService {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://mploed-credit-agency.cfapps.io/personRating")
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(creditAgencyServer + "personRating")
                 .queryParam("firstName", scoringInput.getFirstName())
                 .queryParam("lastName", scoringInput.getLastName())
                 .queryParam("postCode", scoringInput.getPostCode())

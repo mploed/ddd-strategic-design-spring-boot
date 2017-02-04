@@ -1,2 +1,4 @@
 server:
   port: 9093
+
+creditAgencyServer: http://localhost:9092/

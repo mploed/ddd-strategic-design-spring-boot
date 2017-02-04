@@ -5,10 +5,19 @@ import com.innoq.mploed.ddd.application.integration.customer.wsdl.SaveCustomerRe
 import com.innoq.mploed.ddd.application.integration.customer.wsdl.SaveCustomerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
 public class CustomerClient  extends WebServiceGatewaySupport {
     private static final Logger log = LoggerFactory.getLogger(CustomerClient.class);
+
+    private String customerServer;
+
+
+    public CustomerClient(String customerServer) {
+        this.customerServer = customerServer;
+    }
 
     public Customer saveCustomer(Customer customer) {
         SaveCustomerRequest request = new SaveCustomerRequest();
@@ -22,7 +31,7 @@ public class CustomerClient  extends WebServiceGatewaySupport {
 
         log.info("Saving Customer in the CRM System");
 
-        SaveCustomerResponse response = (SaveCustomerResponse)getWebServiceTemplate().marshalSendAndReceive("http://localhost:9091/ws", request);
+        SaveCustomerResponse response = (SaveCustomerResponse)getWebServiceTemplate().marshalSendAndReceive(customerServer + "ws", request);
 
         log.info("Saved Customer with Id: " + response.getCustomer().getId());
         Customer result = new Customer();

@@ -2,4 +2,4 @@
 applications:
 - name: mploed-credit-agency
   memory: 256M
-  path: credit-agency-0.1.0.jar
+  path: target/credit-agency-0.1.0.jar
