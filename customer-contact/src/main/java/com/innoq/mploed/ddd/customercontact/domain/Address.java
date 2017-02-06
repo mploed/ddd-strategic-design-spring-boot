@@ -4,10 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@SequenceGenerator(name = "address-seq", sequenceName = "address-seq")
 public class Address implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address-seq")
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(unique = true)

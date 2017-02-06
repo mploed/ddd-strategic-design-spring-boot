@@ -1,7 +1,7 @@
 ---
 applications:
 - name: mploed-scoring
-  memory: 256M
+  memory: 1024M
   path: target/scoring-0.1.0.jar
   env:
     creditAgencyServer: https://mploed-credit-agency.cfapps.io/

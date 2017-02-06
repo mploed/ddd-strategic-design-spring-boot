@@ -1,8 +1,8 @@
 ---
 applications:
 - name: mploed-customer
-  memory: 256M
+  memory: 1024M
   path: target/customer-0.1.0.jar
   services:
-      - mysql-db
+      - mysql-customer
       - redis-pubsub

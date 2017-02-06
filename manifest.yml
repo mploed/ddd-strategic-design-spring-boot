@@ -1,0 +1,34 @@
+---
+applications:
+- name: mploed-credit-agency
+  memory: 1024M
+  instances: 1
+  path: ./credit-agency/target/credit-agency-0.1.0.jar
+- name: mploed-customer
+  memory: 1024M
+  path: ./customer/target/customer-0.1.0.jar
+  services:
+      - mysql-customer
+      - redis-pubsub
+- name: mploed-customer-contact
+  memory: 1024M
+  instances: 1
+  path: ./customer-contact/target/customer-contact-0.1.0.jar
+  services:
+      - mysql-customer-contact
+      - redis-pubsub
+- name: mploed-scoring
+  memory: 1024M
+  path: scoring/target/scoring-0.1.0.jar
+  env:
+    creditAgencyServer: https://mploed-credit-agency.cfapps.io/
+- name: mploed-credit-application
+  memory: 1024M
+  timeout: 180
+  path: credit-application/target/credit-application-0.1.0.jar
+  services:
+      - mysql-credit-application
+      - redis-pubsub
+  env:
+    scoringServer: https://mploed-scoring.cfapps.io/
+    customerServer: https://mploed-customer.cfapps.io/

@@ -3,10 +3,9 @@ package com.innoq.mploed.ddd.customer.domain;
 import javax.persistence.*;
 
 @Entity
-@SequenceGenerator(name = "kunde-seq", sequenceName = "kunde-seq")
 public class Kunde {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "kunde-seq")
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     private String vorname;
     private String nachname;
