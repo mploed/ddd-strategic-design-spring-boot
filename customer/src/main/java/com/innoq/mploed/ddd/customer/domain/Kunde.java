@@ -1,14 +1,12 @@
 package com.innoq.mploed.ddd.customer.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@SequenceGenerator(name = "kunde-seq", sequenceName = "kunde-seq")
 public class Kunde {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "kunde-seq")
     private Long id;
     private String vorname;
     private String nachname;
