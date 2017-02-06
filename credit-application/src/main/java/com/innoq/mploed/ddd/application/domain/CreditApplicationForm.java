@@ -4,9 +4,10 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@SequenceGenerator(name = "credit-application-form-seq", sequenceName = "credit-application-form-seq")
 public class CreditApplicationForm {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "credit-application-form-seq")
     private Long id;
 
     private int term;
