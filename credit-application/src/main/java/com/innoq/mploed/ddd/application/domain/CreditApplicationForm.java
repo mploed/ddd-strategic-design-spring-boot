@@ -2,6 +2,7 @@ package com.innoq.mploed.ddd.application.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 public class CreditApplicationForm {
@@ -72,7 +73,7 @@ public class CreditApplicationForm {
     }
 
     public BigDecimal getMonthlyPayment() {
-        return this.amount.divide(new BigDecimal(this.getTerm()));
+        return this.amount.divide(new BigDecimal(this.getTerm()), 2, RoundingMode.HALF_UP);
     }
 
 
