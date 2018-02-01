@@ -21,12 +21,7 @@ public class CustomerClient  extends WebServiceGatewaySupport {
 
     public Customer saveCustomer(Customer customer) {
         SaveCustomerRequest request = new SaveCustomerRequest();
-        com.innoq.mploed.ddd.application.integration.customer.wsdl.Customer webServiceCustomer = new com.innoq.mploed.ddd.application.integration.customer.wsdl.Customer();
-        webServiceCustomer.setCity(customer.getCity());
-        webServiceCustomer.setFirstName(customer.getFirstName());
-        webServiceCustomer.setLastName(customer.getLastName());
-        webServiceCustomer.setStreet(customer.getStreet());
-        webServiceCustomer.setPostCode(customer.getPostCode());
+        com.innoq.mploed.ddd.application.integration.customer.wsdl.Customer webServiceCustomer = fromInternalToExternalModel(customer);
         request.setCustomer(webServiceCustomer);
 
         log.info("Saving Customer in the CRM System");
@@ -34,6 +29,11 @@ public class CustomerClient  extends WebServiceGatewaySupport {
         SaveCustomerResponse response = (SaveCustomerResponse)getWebServiceTemplate().marshalSendAndReceive(customerServer + "ws", request);
 
         log.info("Saved Customer with Id: " + response.getCustomer().getId());
+        Customer result = fromExternalToInternalModel(response);
+        return result;
+    }
+
+    private Customer fromExternalToInternalModel(SaveCustomerResponse response) {
         Customer result = new Customer();
         result.setId(response.getCustomer().getId());
         result.setFirstName(response.getCustomer().getFirstName());
@@ -42,6 +42,16 @@ public class CustomerClient  extends WebServiceGatewaySupport {
         result.setPostCode(response.getCustomer().getPostCode());
         result.setCity(response.getCustomer().getCity());
         return result;
+    }
+
+    private com.innoq.mploed.ddd.application.integration.customer.wsdl.Customer fromInternalToExternalModel(Customer customer) {
+        com.innoq.mploed.ddd.application.integration.customer.wsdl.Customer webServiceCustomer = new com.innoq.mploed.ddd.application.integration.customer.wsdl.Customer();
+        webServiceCustomer.setCity(customer.getCity());
+        webServiceCustomer.setFirstName(customer.getFirstName());
+        webServiceCustomer.setLastName(customer.getLastName());
+        webServiceCustomer.setStreet(customer.getStreet());
+        webServiceCustomer.setPostCode(customer.getPostCode());
+        return webServiceCustomer;
     }
 
 }
