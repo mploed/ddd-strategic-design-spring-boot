@@ -1,12 +1,12 @@
 # DDD Strategic Design with Spring Boot
-Application to demonstrate Domain Driven Design Context Mapping patterns based on variosu Spring Boot applications.
+Application to demonstrate Domain Driven Design Context Mapping patterns based on various Spring Boot applications.
 Please bear in mind that the application itself is kept simplistic, in order to isolate the focus on the Context Mapping
 Patterns. This is the reason why you will find some logic in Controllers that should be placed in other classes in a real-world
 application or the reason why I use database IDs for a general purpose.
 
 Also keep in mind that some of the Context Mapping Patterns _not_ best practices but are things that are found in existing, historically grown applications. Context Mapping is mostly a way to look at _existing_ solutions and this code example is an existing solution that has some intentionally built in issues.
 
-A good starting point for your analysis is the CreditApplicationController in credit-application as it implements the
+A good starting point for your analysis is the [`CreditApplicationController`](https://github.com/mploed/ddd-strategic-design-spring-boot/blob/master/credit-application/src/main/java/com/innoq/mploed/ddd/application/controller/CreditApplicationController.java) in credit-application as it implements the
 main workflow.
 
 
@@ -23,7 +23,7 @@ There is no "one-stop" build and install script as of yet so you will have to ta
 2. Build the scoring-shared-kernel module
 3. Build the customer application
 4. Run the customer application
-5. Run mvn jaxb2:generate in credit-application while the customer application is running
+5. Run `mvn jaxb2:generate` in credit-application while the customer application is running
 6. Run the scoring application
 7. Run the credit-agency application
 8. Run the customer-contact application
