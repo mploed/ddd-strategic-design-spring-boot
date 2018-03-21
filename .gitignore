@@ -16,3 +16,9 @@ hs_err_pid*
 
 # embedded database files
 *.rdb
+
+# Maven output directory
+target/
+
+# Don't ignore the Maven wrapper, see https://github.com/takari/maven-wrapper
+!maven-wrapper.jar

@@ -11,7 +11,7 @@ main workflow.
 
 
 ## Prerequisites
-- You need a current version of Maven
+- You need Java version 1.8 to build and run the applications
 - A basic installation of Redis must be installed and running (redis-server)
 
 ## How to run and install the example
