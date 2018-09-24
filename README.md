@@ -1,5 +1,5 @@
 # DDD Strategic Design with Spring Boot
-Application to demonstrate Domain Driven Design Context Mapping patterns based on variosu Spring Boot applications.
+Application to demonstrate Domain Driven Design Context Mapping patterns based on various Spring Boot applications.
 Please bear in mind that the application itself is kept simplistic, in order to isolate the focus on the Context Mapping
 Patterns. This is the reason why you will find some logic in Controllers that should be placed in other classes in a real-world
 application or the reason why I use database IDs for a general purpose.
